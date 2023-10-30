@@ -190,7 +190,6 @@
             @blur="v$.destination_zip_code.$touch"
             variant="outlined"
             color="#013220"
-            type="number"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -207,7 +206,6 @@
             @blur="v$.total_pieces.$touch"
             variant="outlined"
             color="#013220"
-            type="number"
           ></v-text-field>
         </v-col>
 
@@ -222,7 +220,7 @@
             @blur="v$.total_weight.$touch"
             variant="outlined"
             color="#013220"
-            type="number"
+            
           ></v-text-field>
         </v-col>
 
@@ -324,7 +322,7 @@ function clear() {
 }
 
 function validateForm() {
-        router.push({ name: "Prediction" });
+  router.push({ name: "Prediction" });
 
   // v$.value.$touch();
 
@@ -333,8 +331,8 @@ function validateForm() {
   //   return;
   // }
 
-  console.log("Validation passed");
-  state.loading = true;
+  // console.log("Validation passed");
+  // state.loading = true;
 
   // const formData = {
   //   customer: state.customer,
@@ -363,7 +361,7 @@ function validateForm() {
   //     console.error("Error:", error);
   //   });
 
-  // console.log(state.selectMode);
+  console.log(state.selectMode);
 }
 </script>
 

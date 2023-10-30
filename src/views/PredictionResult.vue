@@ -44,22 +44,7 @@ export default {
   },
   methods: {
     updateChartData() {
-      // const apiResponse = {
-      //   message: "API response received and data deleted successfully",
-      //   responseData: [80],
-      // };
-
-      // const responseData = apiResponse.responseData;
-      // console.log("value" + responseData);
-      // this.series = responseData;
-
-      // const newData = [80];
-      // const newLabels = ["Theft", "Not Theft"];
-
-      // // Update the chart data.
-      // this.series = newData;
-      // this.chartOptions.labels = newLabels;
-
+      
       axios
         .get("http://127.0.0.1:5000/api/theft/score")
         .then((response) => {
@@ -70,28 +55,23 @@ export default {
 
           if (updateDataValue === 0) {
           
-           const newData = [85,15];
+           const newData = [100,0];
             const newLabels = ["Theft", "Not Theft"];
 
             // Update the chart data.
             this.series = newData;
             this.chartOptions.labels = newLabels;
 
-          // const newData = [80];
-            // const newLabels = ["Theft", "Not Theft"];
-
-            // // // Update the chart data.
-            // this.series = newData;
-            // this.chartOptions.labels = newLabels;
+         
           }else{
-            const newData = [85,15];
+            const converValue = 100-(updateDataValue *100);
+            console.log("converva " + converValue)
+            const newData = [converValue,updateDataValue*100];
             const newLabels = ["Theft", "Not Theft"];
 
-            // Update the chart data.
             this.series = newData;
             this.chartOptions.labels = newLabels;
           }
-          // this.series = response.data.responseData;
         })
         .catch((error) => {
           console.error("Error fetching data from the API:", error);

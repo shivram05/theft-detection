@@ -220,7 +220,6 @@
             @blur="v$.total_weight.$touch"
             variant="outlined"
             color="#013220"
-            
           ></v-text-field>
         </v-col>
 
@@ -273,21 +272,37 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const initialState = {
-  customer: "",
-  carrier_name: "",
-  origin_name: "",
-  origin_state: "",
-  origin_city: "",
-  origin_zipCode: "",
+  customer: "SAMSUNG SDS AMERICA",
+  carrier_name: "BALI EXPRESS SERVICES INC",
+  origin_name: "OTAY SDS YARD",
+  origin_state: "CA",
+  origin_city: "SAN DIEGO",
+  origin_zipCode: "92154",
   // service_provider_name: "",
-  destination_city: "",
-  destination_name: "",
-  destination_state: "",
-  destination_zip_code: "",
-  total_pieces: "",
-  total_weight: "",
-  commodity_description: "",
+  destination_city: "COLUMBUS",
+  destination_name: "COSTCO #1257",
+  destination_state: "OH",
+  destination_zip_code: "432283600",
+  total_pieces: "56",
+  total_weight: "6975",
+  commodity_description: "RKS DSKT WDN",
   selectMode: "IML",
+
+  // customer: "GE APPLIANCE",
+  // carrier_name: "HUB GROUP TRUCKING INC OTM2",
+  // origin_name: "CARLILE TRANSPORTATION",
+  // origin_state: "WA",
+  // origin_city: "TACOMA",
+  // origin_zipCode: "98421",
+  // // service_provider_name: "",
+  // destination_city: "WALNUT",
+  // destination_name: "GENERAL ELECTRIC COMPANY",
+  // destination_state: "CA",
+  // destination_zip_code: "917892944",
+  // total_pieces: "20",
+  // total_weight: "38899",
+  // commodity_description: "ELEC APLNCS",
+  // selectMode: "IML",
 };
 
 const state = reactive({
@@ -324,42 +339,42 @@ function clear() {
 function validateForm() {
   router.push({ name: "Prediction" });
 
-  // v$.value.$touch();
+  v$.value.$touch();
 
-  // if (v$.value.$error) {
-  //   console.log("Validation failed");
-  //   return;
-  // }
+  if (v$.value.$error) {
+    console.log("Validation failed");
+    return;
+  }
 
-  // console.log("Validation passed");
-  // state.loading = true;
+  console.log("Validation passed");
+  state.loading = true;
 
-  // const formData = {
-  //   customer: state.customer,
-  //   carrier_name: state.carrier_name,
-  //   transporation_mode: state.selectMode,
-  //   origin_name: state.origin_name,
-  //   origin_city: state.origin_city,
-  //   origin_state: state.origin_state,
-  //   origin_zipCode: state.origin_zipCode,
-  //   destination_name: state.destination_name,
-  //   destination_city: state.destination_city,
-  //   destination_state: state.destination_state,
-  //   destination_zip_code: state.destination_zip_code,
-  //   total_pieces: state.total_pieces,
-  //   total_weight: state.total_weight,
-  //   commodity_description: state.commodity_description,
-  // };
+  const formData = {
+    customer: state.customer,
+    carrier_name: state.carrier_name,
+    transporation_mode: state.selectMode,
+    origin_name: state.origin_name,
+    origin_city: state.origin_city,
+    origin_state: state.origin_state,
+    origin_zipCode: state.origin_zipCode,
+    destination_name: state.destination_name,
+    destination_city: state.destination_city,
+    destination_state: state.destination_state,
+    destination_zip_code: state.destination_zip_code,
+    total_pieces: state.total_pieces,
+    total_weight: state.total_weight,
+    commodity_description: state.commodity_description,
+  };
 
-  // axios
-  //   .post("http://127.0.0.1:5000/api/theft/submit", formData)
-  //   .then((response) => {
-  //     state.loading = false;
-  //     router.push({ name: "Prediction" });
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //   });
+  axios
+    .post("http://127.0.0.1:5000/api/theft/submit", formData)
+    .then((response) => {
+      state.loading = false;
+      router.push({ name: "Prediction" });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 
   console.log(state.selectMode);
 }

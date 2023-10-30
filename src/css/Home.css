@@ -1,13 +1,9 @@
 .home{
-    /* padding: 20px; */
+   
     margin-top: 50px;
     margin-left: 30px;
     margin-right: 30px;
 }
-
-.custom-text-field input::placeholder {
-    color: red; /* Change the placeholder color when unselected */
-  }
 
 #title{
     padding: 20px;

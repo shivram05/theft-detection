@@ -2,10 +2,10 @@
   <v-app>
     <NavBar />
 
-    <v-spacer></v-spacer>
-
     <v-main>
-    
+      <router-link to="prediction">
+
+      </router-link>
       <router-view />
     </v-main>
   </v-app>
@@ -18,10 +18,6 @@ export default {
   components: {
     NavBar,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
 

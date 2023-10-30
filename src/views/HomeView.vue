@@ -29,21 +29,6 @@
             color="#013220"
           ></v-text-field>
         </v-col>
-        <!-- <v-col cols="12" md="6">
-          <v-select
-            v-model="state.transporation_mode"
-            :error-messages="
-              v$.transporation_mode.$errors.map((e) => e.$message)
-            "
-            label="Transporation Mode"
-            :items="transporation_mode"
-            required
-            @input="v$.transporation_mode.$touch"
-            @blur="v$.transporation_mode.$touch"
-            variant="outlined"
-            color="#013220"
-          ></v-select>
-        </v-col> -->
       </v-row>
 
       <v-row>
@@ -257,23 +242,10 @@
           ></v-text-field>
         </v-col>
       </v-row>
+    </div>
 
-      <!-- <v-row>
-        <v-col cols="12" md="3">
-          <v-text-field
-            v-model="state.service_provider_name"
-            :error-messages="
-              v$.service_provider_name.$errors.map((e) => e.$message)
-            "
-            label="Service Provider Name"
-            required
-            @input="v$.service_provider_name.$touch"
-            @blur="v$.service_provider_name.$touch"
-            variant="outlined"
-            color="#013220"
-          ></v-text-field>
-        </v-col>
-      </v-row> -->
+    <div class="loader" v-if="state.loading">
+      <b-spinner label="Loading..."></b-spinner>
     </div>
 
     <div class="button-container">
@@ -298,6 +270,9 @@ import { reactive } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { email, required } from "@vuelidate/validators";
 import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const initialState = {
   customer: "",
@@ -319,6 +294,7 @@ const initialState = {
 
 const state = reactive({
   ...initialState,
+  loading: false,
 });
 
 const rules = {
@@ -348,54 +324,49 @@ function clear() {
 }
 
 function validateForm() {
-  v$.value.$touch();
+        router.push({ name: "Prediction" });
 
-  if (v$.value.$error) {
-    console.log("Validation failed");
-    return;
-  }
+  // v$.value.$touch();
+
+  // if (v$.value.$error) {
+  //   console.log("Validation failed");
+  //   return;
+  // }
 
   console.log("Validation passed");
+  state.loading = true;
 
-  const formData = {
-    customer: state.customer,
-    carrier_name: state.carrier_name,
-    transporation_mode: state.selectMode,
-    origin_name: state.origin_name,
-    origin_city: state.origin_city,
-    origin_state: state.origin_state,
-    origin_zipCode: state.origin_zipCode,
-    destination_name: state.destination_name,
-    destination_city: state.destination_city,
-    destination_state: state.destination_state,
-    destination_zip_code: state.destination_zip_code,
-    total_pieces: state.total_pieces,
-    total_weight: state.total_weight,
-    commodity_description: state.commodity_description,
-  };
+  // const formData = {
+  //   customer: state.customer,
+  //   carrier_name: state.carrier_name,
+  //   transporation_mode: state.selectMode,
+  //   origin_name: state.origin_name,
+  //   origin_city: state.origin_city,
+  //   origin_state: state.origin_state,
+  //   origin_zipCode: state.origin_zipCode,
+  //   destination_name: state.destination_name,
+  //   destination_city: state.destination_city,
+  //   destination_state: state.destination_state,
+  //   destination_zip_code: state.destination_zip_code,
+  //   total_pieces: state.total_pieces,
+  //   total_weight: state.total_weight,
+  //   commodity_description: state.commodity_description,
+  // };
 
-  axios
-    .post("http://127.0.0.1:5000/submit", formData)
-    .then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        console.log("Data at index", i, ":", response.data[i]);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  // axios
+  //   .post("http://127.0.0.1:5000/api/theft/submit", formData)
+  //   .then((response) => {
+  //     state.loading = false;
+  //     router.push({ name: "Prediction" });
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //   });
 
-  console.log(state.selectMode);
+  // console.log(state.selectMode);
 }
 </script>
 
 <style>
 @import "../css/Home.css";
-
-body {
-  background-image: url("https://www.searchenginejournal.com/wp-content/uploads/2019/07/the-essential-guide-to-using-images-legally-online-1520x800.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
 </style>
